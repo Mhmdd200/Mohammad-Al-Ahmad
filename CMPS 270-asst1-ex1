@@ -1,0 +1,27 @@
+ #include <stdio.h>
+int hammingdistance(int, int);
+int main() {
+    int a = 0, b = 0;
+    printf("please enter the first and second integer in order to know their hamming distance:");
+    scanf("%d  %d", &a ,&b);
+    if (a == -1 || b == -1) {
+        printf("Exiting..");
+    }
+    else {
+        printf("The hamming distance is: %d", hammingdistance(a, b));
+    }
+    return 0;
+}
+/*specs for hammingdistance:
+* requires:2 postive integers or 0 and it exists otherwise
+* effects: It returns the hamming distance in bits between the two integers
+*/
+int hammingdistance(int a, int b) {
+    int _bit = a ^ b;
+    int bits = 0;
+    while (_bit > 0) {
+        bits += _bit & 1;
+        _bit >>= 1;
+    }
+    return bits;
+} 
