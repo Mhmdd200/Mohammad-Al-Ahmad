@@ -1,0 +1,34 @@
+#include <stdio.h>
+int msb(int);
+#define number_of_bits 32
+int main() {
+    int a;
+    printf("Please enter a non-zero postive integer:");
+    scanf("%d", &a);
+    if (a <= 0) {
+        printf("Wrong input, non-zero positive integer required!");
+    }
+    int position = msb(a);
+    printf("the position of the msb of the integer you provided: %d", number_of_bits - (position + 1));
+    return 0;
+}
+/*requires:positive integer(i made sure of that in main
+* effect:return the position of the msb
+* test cases: positive integer and it works
+* negative integer and it doesn't work
+*/
+int msb(int a) {
+    int index = 0, bit;
+    while (index < number_of_bits) {
+        bit = a & 0x80000000;
+        if (bit == -0x80000000) {
+            bit = 1;
+        }
+        if (bit == 1) {
+            break;
+        }
+        a = a << 1;
+        index++;
+    }
+    return index;
+}
