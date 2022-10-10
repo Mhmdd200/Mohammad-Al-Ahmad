@@ -1,0 +1,28 @@
+#include <stdio.h>
+char** merge(char[],char[], int size1, int size2);
+
+int main() {
+	return 0;
+}
+/*I didn't have time to test the method
+specs:
+requires: two arrays of chars and give it their pointers as parameters.
+effects: it is supposed to return a new array containing all strings in sorted (alpha-numeric) order.
+*/
+char** merge(char *arr1[], char *arr2[],int size1,int size2){
+	int overallsize = size1 + size2;
+	char** result_string = (char**)malloc(sizeof(char*) * overallsize);
+	for (int i = 0; i < size1; i++) {
+		for (int j = 0; j < size2; j++) {
+			if (strcmp(arr1[i], arr2[j]) < 0) {
+				result_string[i] = arr1[i];
+			}
+			else if (strcmp(arr1[i], arr2[j] > 0)) {
+				result_string[i] = arr2[j];
+			}
+		}
+	}
+	return result_string;
+
+	
+}
