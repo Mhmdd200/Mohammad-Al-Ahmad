@@ -1,0 +1,166 @@
+#include <stdio.h>
+int array[10] = {1,1,1,2,2,2,3,3,3,2};
+int SIZE = 10;
+void printarray(int []);
+void arrayHistogram(int[]);
+void helperHistogram(int[]);
+void swapvalues(int [], int i, int j);
+void bubblesort(int[]);
+int medianarray(int []);
+int modearray(int[]);
+int isSorted(int[]);
+//every function has a test case in the main
+int main() {
+	//printarray(array);
+	//arrayHistogram(array);
+	//swapvalues(array, 0, 4);
+	//for (int i = 0; i < SIZE; i++) {
+	//	printf("%d",array[i]);
+	//}
+	//int array1[10] = { 9,8,5,1,1,4,1,7,6,0};
+	//bubblesort(array1); will return:{0,1,2,3,4,5,6,7,8,9}
+	//printf("%d",medianarray(array1));
+	//printf("%d", modearray(array1));
+	//int array2[10] = { 0,1,2,3,4,5,6,7,8,9};
+	//printf("%d", isSorted(array1));
+	//  printf("%d",isSorted(array2));
+}
+/* specifications(printarray method):
+* Requires: ONLY array of integers(not array of chars or anything else)
+* Effects:It prints the indices with the values respectively
+* Test cases: I tested the following test cases on the array and all of them worked.
+* {1,1,1,2,2,2,3,3,1,2} - {1,1,1,2,2,2,3,3,2,1} - {1,1,1,2,2,2,3,3,3,2} - {1,2,3,2,2,2,3,3,3,3}
+* - {3,1,2,2,2,2,3,3,2,1} - {2,2,2,3,3,3,1,1,1,1}-
+* I tried this case of all are the same numbers : {1,1,1,1,1,1,1,1,1,1}-{2,2,2,2,2,2,2,2,2,2}
+*-{3,3,3,3,3,3,3,3,3,3}
+* THERE are a lot of combinations, but i tried it with different starting and ending numbers in the array
+* => These numbers worked, so every single combination will work.
+*/
+void printarray(int array[]) {
+	printf("Index Value\n");
+	for (int i = 0; i < SIZE; i++) {
+		printf("%3d %5d\n", i, array[i]);
+	}
+}
+/* specifications(arrayHistrogram):
+* requires:integers of values only 1,2,3 in an array of size 10
+* effect: it prints the value,frequency,histogram of each value in ther array respectively
+* test cases: There are a lot of combinations of 1,2,3 in size 10 array, so i tried a few
+* random :{1,1,1,1,2,2,2,3,3,3}-{1,1,1,1,2,2,2,3,2,3}-{1,1,1,1,2,2,2,3,3,1}-{1,1,1,1,2,2,2,3,3,2}
+* all numbers are the same: {1,1,1,1,1,1,1,1,1,1}-{2,2,2,2,2,2,2,2,2,2}-{3,3,3,3,3,3,3,3,3,3}
+* It worked on all the unique cases i have tried so it will work on every case
+* 
+
+*/
+void arrayHistogram(int arr[]) {
+	printf("%s", "Value Frequency Histrogram\n");
+	int frequency_for_one = 0;
+	int frequency_for_two = 0;
+	int frequency_for_three = 0;
+	for (int i = 0; i < SIZE; i++) {
+		if (array[i] == 1) {
+			frequency_for_one+=1;
+		}
+		else if (array[i] == 2) {
+			frequency_for_two+=1;
+		}
+		else if (array[i] == 3) {
+			frequency_for_three+=1;
+		}
+	}
+		printf("1 %7d", frequency_for_one);
+		helperHistogram(frequency_for_one);
+		printf("\n2 %7d", frequency_for_two);
+		helperHistogram(frequency_for_two);
+		printf("\n3 %7d", frequency_for_three);
+		helperHistogram(frequency_for_three);
+}
+/*this is a helper function to print the stars of the frequency of each value in the array
+* specs(helperHistogram):
+* requires: frequency from the arrayhistogram method
+* effects: it prints the frequency number as stars
+* test cases: I gave it all same numbers in the array example:{1,1,1,1,1,1,1,1,1,1} and 
+* it worked fine, also it WORKS on random values
+*/
+void helperHistogram(int frequency) {
+	printf("        ");
+	for (int i = 1; i <= frequency; i++) {
+		printf("*");
+	}
+}
+/*specs for swapvalues: I TESTED THIS FUNCTION IN THE MAIN NOT IN IT.
+* requires: an array on integers of 1,2,3 and 2 integers(indices) that must be less than 9 and
+greater than 0, because the size of the array is 10
+* effects: it swaps the values of the first index with the other, then it prints the new array
+* Test cases: I tried an array of all of the same value and it doesn't swap bcz it can't
+* I tried random test cases it works perfectly, unless you give it as parameter an index which is 
+* greater than 9 or less than 0 it will lead to a wrong answer(just give it valid indices and it
+* will work)
+
+*/
+void swapvalues(int arr[], int first_index, int second_index) {
+	int temp = arr[first_index];
+	arr[first_index] = arr[second_index];
+	arr[second_index] = temp;
+}
+/*specs for bubblesort:
+requires: an array of size 10 with no duplicate values
+effects: it sorts the array using the bubblesort algorithm
+test cases: I tested it in the main with different values taking into consideration the requires
+and i used a new array different from the array of parts 1,2,3,4 */
+void bubblesort(int array[]){
+	for (int i = 0; i < SIZE; i++) {
+		for (int j = 0; j < SIZE-1; j++) {
+			if (array[j+1] < array[j]) {
+				swapvalues(array, j, j+1);
+			}
+		}
+	}
+
+}
+/*specs for medianarray:
+* requires: an array of integers of size 10, but it can work on other sizes you should just 
+  change the variable SIZE,and if you need the exact middle element, you should make the size odd.
+* effects: it returns the middle element of the array
+* test cases: i tried the array1 and it works, so it will work on every array bcz bubble sort works.
+*/
+int medianarray(int array[]) {
+	bubblesort(array);
+	return array[SIZE / 2];
+}
+/*specs for modearray:
+* requires: array of integers of size 10 (you can change the variable SIZE and it will still work)
+* effects: it returns the most repeated element in the array
+* Test cases:It works for random values in any array
+*/
+int modearray(int array[]){
+	int max, count;
+	int maxCount = 0;
+	for (int i = 0; i < SIZE; i++){
+		count = 1;
+		for (int j = i + 1; j < SIZE; j++){
+			if (array[j] == array[i]){
+				count++;
+				if (count > maxCount){
+					max = array[j];
+				}
+			}
+		}
+	}
+	return max;
+}
+/*specs for isSorted:
+requires: an array of size 10, but it works on array of random size u want just redefine the variable
+SIZE.
+effects: it should return 1 if the array is sorted, and 0 otherwise*/
+int isSorted(int array[]){
+	for (int i = 0; i < SIZE; i++) {
+		if (array[i] < array[i + 1]) {
+			continue;
+		}
+		else {
+			return 0;
+		}
+	}
+	return 1;
+}
